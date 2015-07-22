@@ -1,0 +1,35 @@
+{
+  "name": "wallet-public-profile-store",
+  "version": "1.0.0",
+  "description": "A key-value store for storing a user's private information, addressed by their wallet addressed and decoded by their private key.",
+  "main": "index.js",
+  "scripts": {
+    "start": "foreman start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewmalta13/wallet-public-profile-store.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "wallet",
+    "user",
+    "blockai",
+    "storage",
+    "json"
+  ],
+  "author": "Andrew Malta <andrew.malta@yale.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewmalta13/wallet-public-profile-store/issues"
+  },
+  "homepage": "https://github.com/andrewmalta13/wallet-public-profile-store",
+  "dependencies": {
+    "blockcypher-unofficial": "^1.4.1",
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "pg": "^4.4.0",
+    "request": "^2.60.0"
+  }
+}
