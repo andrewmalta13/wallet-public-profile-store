@@ -16,7 +16,7 @@ You will be returned a list of json objects of the form :
   {
     "address" : "some address",
     "json": {
-      (some json object)
+      some: "json object"
     }
   }
 ```
@@ -30,7 +30,7 @@ send a post requst to /insert with an array of json objects ofthe form:
   {
     "address" : "some address",
     "json": {
-      (some json object)
+      some: "json object"
     }
   }
 ```
