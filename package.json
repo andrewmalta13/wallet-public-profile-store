@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/andrewmalta13/wallet-public-profile-store",
   "dependencies": {
+    "bitcoinjs-lib": "^1.5.7",
     "blockcypher-unofficial": "^1.4.1",
     "body-parser": "^1.13.2",
     "express": "^4.13.1",

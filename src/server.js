@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 var pg = require('pg');
+var bitcoin = require('bitcoinjs-lib');
 
 var commonBlockchain = require('blockcypher-unofficial')({
   key: process.env.KEY,
@@ -33,6 +34,19 @@ function throwError (message, next) {
   next(err);
 }
 
+function verifyPayload (address, signature, message, network) {
+ return(bitcoin.Message.verify(address, signature, message, network));
+}
+
+function detectNetwork (address) {
+  var firstChar = address.charAt(0);
+  if (firstChar === 'n' || firstChar === 'm') {
+    return bitcoin.networks.testnet;
+  }
+  else {
+    return null;
+  }
+}
 
 app.get('/get/:addressList', function (req, res, next) {
   var sortParam = req.params["addressList"];
@@ -70,7 +84,6 @@ app.post('/insert', function (req, res, next) {
   if (req.body) {
     try {
       parsed = req.body;
-      console.log(parsed);
       var count = 0;
       parsed.forEach(function (pair){
         commonBlockchain.Addresses.Unspents([pair.address], function (err, resp) {
@@ -80,20 +93,28 @@ app.post('/insert', function (req, res, next) {
           else {
             if (resp[0].length > 0) {
               var address = pair.address;
-              var json = pair.json;
+              var network = detectNetwork(address);
+              var json = JSON.stringify(pair.json);
+              var signature = pair.signature;
               json.timestamp = new Date().getTime();
-
-              dbclient.query("INSERT INTO objects VALUES ($1, $2)", [address, json], function (err, result) {
-                if (err) {
-                  throwError("could not insert into db", next);
-                }
-                else {
-                  if (++count === parsed.length) {
-                    console.log("inserted all object succesfully.")
-                    res.end();
+              
+              if(verifyPayload(address, signature, json, network)) {
+                dbclient.query("INSERT INTO objects VALUES ($1, $2)", [address, json], function (err, result) {
+                  if (err) {
+                    throwError("could not insert into db", next);
                   }
+                  else {
+                    if (++count === parsed.length) {
+                      res.end("inserted all object succesfully.");
+                    }
+                  }
+                });
+              }
+              else {
+                if (++count === parsed.length) {
+                  res.end("processed all pending insertions");
                 }
-              });
+              }
             }
           }
         });
