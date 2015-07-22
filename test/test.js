@@ -1,29 +1,25 @@
 var request = require('request');
+var bitcoin = require('bitcoinjs-lib');
+
 
 var testJson = [
 {
   address: "msLoJikUfxbc2U5UhRSjc2svusBSqMdqxZ",
+  signature: "HJLQlDWLyb1Ef8bQKEISzFbDAKctIlaqOpGbrk3YVtRsjmC61lpE5ErkPRUFtDKtx98vHFGUWlFhsh3DiW6N0rE",
   json: {
     hey: "yo dawg",
     test: "testing 123"
   }
 },
 {
-  address: "mjf6CRReqGSyvbgryjE3fbGjptRRfAL7cg",
+  address: "mghg74ZBppLfhEUmzxK4Cwt1FCqiEtYbXS",
+  signature: "H/fLF99RaiQ2kA4MMFYNUBAI3sJzq7xKjsHRFv17od1LBUzo4PymbWowv2yHBVtkxZExC4NpNWohCbyG8JR7B08=",
   json: {
-    dkdsf: "sfdsf",
-    dfk: 1235,
-    yodawg: "I heard you liked json, so I put json in your json so you could parse while you parse"
+    hey: "yo dawg",
+    test: "testing 123"
   }
-},
-{
-  address: "mjf6CRReqGSyvbgryjE3fbGjptRRfAL7cg",
-  json: {
-    df123: true,
-    dfk: .01,
-    yodawg: "wassup"
-  }
-}];
+}
+];
 
 request({
   url: "http://localhost:5000/insert", //URL to hit
@@ -37,3 +33,6 @@ request({
     console.log("error posting: " + error);
   } 
 });
+
+
+
