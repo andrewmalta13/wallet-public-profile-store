@@ -24,7 +24,7 @@ You will be returned a list of json objects of the form :
 
 ## INSERT
 
-send a post requst to /insert with an array of json objects ofthe form:
+send a post requst to /insert with an array of json objects of the form:
 
 ```json
   {
